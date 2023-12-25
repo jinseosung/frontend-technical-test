@@ -3,5 +3,6 @@ export interface Message {
   conversationId: number
   authorId: number
   timestamp: number
+  private: boolean
   body: string
 }
