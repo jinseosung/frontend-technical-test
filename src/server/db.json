@@ -4,24 +4,30 @@
       "id": 1,
       "recipientId": 2,
       "recipientNickname": "Jeremie",
+      "recipientAvatar": "https://www.svgrepo.com/show/61986/avatar.svg",
       "senderId": 1,
       "senderNickname": "Thibaut",
+      "senderAvatar": "https://www.svgrepo.com/show/43652/avatar.svg",
       "lastMessageTimestamp": 1625637849
     },
     {
       "id": 2,
       "recipientId": 3,
       "recipientNickname": "Patrick",
+      "recipientAvatar": "https://www.svgrepo.com/show/70698/avatar.svg",
       "senderId": 1,
       "senderNickname": "Thibaut",
+      "senderAvatar": "https://www.svgrepo.com/show/43652/avatar.svg",
       "lastMessageTimestamp": 1620284667
     },
     {
       "id": 3,
       "recipientId": 1,
       "recipientNickname": "Thibaut",
+      "recipientAvatar": "https://www.svgrepo.com/show/43652/avatar.svg",
       "senderId": 4,
       "senderNickname": "Elodie",
+      "senderAvatar": "https://www.svgrepo.com/show/87887/avatar.svg",
       "lastMessageTimestamp": 1625648667
     }
   ],
@@ -31,6 +37,7 @@
       "conversationId": 1,
       "timestamp": 1625637849,
       "authorId": 1,
+      "private": true,
       "body": "Bonjour c'est le premier message de la première conversation"
     },
     {
@@ -38,6 +45,7 @@
       "conversationId": 1,
       "timestamp": 1625637867,
       "authorId": 1,
+      "private": false,
       "body": "Bonjour c'est le second message de la première conversation"
     },
     {
@@ -45,6 +53,7 @@
       "conversationId": 1,
       "timestamp": 1625648667,
       "authorId": 2,
+      "private": false,
       "body": "Bonjour c'est le troisième message de la première conversation"
     },
     {
@@ -52,6 +61,7 @@
       "conversationId": 2,
       "timestamp": 1620284667,
       "authorId": 2,
+      "private": true,
       "body": "Bonjour c'est le premier message de la seconde conversation"
     }
   ],
@@ -59,21 +69,25 @@
     {
       "id": 1,
       "nickname": "Thibaut",
+      "avatar": "https://www.svgrepo.com/show/43652/avatar.svg",
       "token": "xxxx"
     },
     {
       "id": 2,
       "nickname": "Jeremie",
+      "avatar": "https://www.svgrepo.com/show/61986/avatar.svg",
       "token": "xxxx"
     },
     {
       "id": 3,
       "nickname": "Patrick",
+      "avatar": "https://www.svgrepo.com/show/70698/avatar.svg",
       "token": "xxxx"
     },
     {
       "id": 4,
       "nickname": "Elodie",
+      "avatar": "https://www.svgrepo.com/show/87887/avatar.svg",
       "token": "xxxx"
     }
   ]
