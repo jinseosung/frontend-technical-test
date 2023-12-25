@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 import Head from "next/head";
 import HomeHeader from "../components/HomeHeader";
+import HomeConversationLists from "../components/HomeConversationLists";
 
 const Home = (): ReactElement => {
   return (
@@ -15,6 +16,7 @@ const Home = (): ReactElement => {
 
       <main className="flex flex-col justify-center items-center">
         <HomeHeader />
+        <HomeConversationLists />
       </main>
     </div>
   );
