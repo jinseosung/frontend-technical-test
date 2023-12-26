@@ -1,20 +1,49 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 import ConversationHeader from "../../components/ConversationHeader";
 import Messages from "../../components/Messages";
+import { getLoggedUserId } from "../../utils/getLoggedUserId";
+import { getConversationById } from "../../api/conversations";
+import { getMessagesByConversationId } from "../../api/messages";
+import { getAllUsers } from "../../api/users";
+import { User } from "../../types/user";
 
-export default function conversationId() {
+export default function ConversationIdPage() {
+  const userId = getLoggedUserId();
+  const users = getAllUsers();
+  const user = users?.find((user: User) => user.id === userId);
+
+  const router = useRouter();
+  const { conversationId } = router.query;
+
+  const conversations = getConversationById(userId);
+  const conversation = conversations?.find(
+    (conversation) => conversation.id === Number(conversationId)
+  );
+
+  const recipientId: number =
+    conversation?.senderId === userId
+      ? conversation?.recipientId
+      : conversation?.senderId;
+
+  const recipient: User = users?.find((user) => user.id === recipientId);
+
   return (
     <>
       <Head>
-        <title>User Messages Page - Leboncoin</title>
+        <title>{`${user.nickname}'s Messages Page - Leboncoin`}</title>
         <meta
           name="description"
-          content="User messages page on leboncoin.fr"
+          content={`${user.nickname}'s messages page on leboncoin.fr`}
         ></meta>
       </Head>
 
-      <ConversationHeader />
+      <ConversationHeader
+        recipientNickname={recipient.nickname}
+        recipientAvatar={recipient.avatar}
+        lastMessageTime={conversation?.lastMessageTimestamp}
+      />
       <Messages />
       <div className="flex flex-col gap-2 p-4">
         <input

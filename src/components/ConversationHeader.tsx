@@ -2,9 +2,21 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import LeftChevron from "../assets/left-chevron.svg";
-import AvatarImg from "../assets/avatar-sample.svg";
+import { getFormattedTime } from "../utils/getFormattedTimestamp";
 
-const ConversationHeader: React.FC = () => {
+interface ConversationHeaderProps {
+  recipientNickname: string;
+  recipientAvatar: string;
+  lastMessageTime: number;
+}
+
+const ConversationHeader: React.FC<ConversationHeaderProps> = ({
+  recipientNickname,
+  recipientAvatar,
+  lastMessageTime,
+}) => {
+  const formattedLastMessageTime = getFormattedTime(lastMessageTime);
+
   return (
     <div className="w-full p-2 flex justify-between items-center border-b border-b-gray-300">
       <div className="w-1/3">
@@ -18,16 +30,18 @@ const ConversationHeader: React.FC = () => {
       </div>
       <div className="flex gap-3 items-center">
         <Image
-          src={AvatarImg}
-          alt="Avatar"
+          src={recipientAvatar}
+          alt={`${recipientNickname}'s avatar`}
           width={40}
           height={40}
-          className="rounded-full object-cover"
+          className="w-10 h-10 object-cover"
         />
-        <h1 className="text-lg md:text-2xl font-bold truncate">User</h1>
+        <h1 className="text-lg md:text-2xl font-bold truncate">
+          {recipientNickname}
+        </h1>
       </div>
       <div className="w-1/3 text-right text-sm truncate">
-        Last message today at Date
+        <p>Last message at {formattedLastMessageTime}</p>
       </div>
     </div>
   );
