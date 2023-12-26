@@ -1,11 +1,9 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Head from "next/head";
 import ConversationHeader from "../../components/ConversationHeader";
 import Messages from "../../components/Messages";
 import { getLoggedUserId } from "../../utils/getLoggedUserId";
-import { getConversationById } from "../../api/conversations";
+import { getConversationByUserId } from "../../api/conversations";
 import {
   getMessagesByConversationId,
   addMessageInConversation,
@@ -13,36 +11,34 @@ import {
 import { getAllUsers } from "../../api/users";
 import { User } from "../../types/user";
 import { v4 as uuidv4 } from "uuid";
+import { Conversation } from "../../types/conversation";
+import { Message } from "../../types/message";
 
-export default function ConversationIdPage() {
+interface ConversationIdPageProps {
+  userId: number;
+  user: User;
+  token: string;
+  conversationId: number;
+  conversation: Conversation;
+  conversationMessages: Message[];
+  recipient: User;
+}
+
+export default function ConversationIdPage({
+  userId,
+  user,
+  token,
+  conversationId,
+  conversation,
+  conversationMessages,
+  recipient,
+}: ConversationIdPageProps) {
   const [isPrivate, setIsPrivate] = useState(false);
 
   const inputRef = useRef(null);
   const selectRef = useRef(null);
 
-  const userId = getLoggedUserId();
-  const users = getAllUsers();
-  const user = users?.find((user: User) => user.id === userId);
-
-  const router = useRouter();
-  const { conversationId } = router.query;
-
-  const conversations = getConversationById(userId);
-  const conversation = conversations?.find(
-    (conversation) => conversation.id === Number(conversationId)
-  );
-
-  const conversationMessages = getMessagesByConversationId(
-    Number(conversationId)
-  );
   const [allMessages, setAllMessages] = useState(conversationMessages);
-
-  const recipientId: number =
-    conversation?.senderId === userId
-      ? conversation?.recipientId
-      : conversation?.senderId;
-
-  const recipient: User = users?.find((user: User) => user.id === recipientId);
 
   const handleMessageSubmit = () => {
     if (!inputRef.current.value) return;
@@ -60,7 +56,7 @@ export default function ConversationIdPage() {
       body: inputRef.current.value,
     };
 
-    addMessageInConversation(newMessageObject);
+    addMessageInConversation(newMessageObject, token);
     inputRef.current.value = "";
     setAllMessages([...allMessages, newMessageObject]);
   };
@@ -109,3 +105,40 @@ export default function ConversationIdPage() {
     </>
   );
 }
+
+export const getServerSideProps = async ({ params }) => {
+  const userId = getLoggedUserId();
+  const users = await getAllUsers();
+  const user = users?.find((user: User) => user.id === userId);
+  const token = user?.token;
+
+  const conversationId = params.conversationId;
+
+  const conversations = await getConversationByUserId(userId);
+  const conversation = conversations?.find(
+    (conversation) => conversation.id === Number(conversationId)
+  );
+
+  const conversationMessages = await getMessagesByConversationId(
+    Number(conversationId)
+  );
+
+  const recipientId: number =
+    conversation?.senderId === userId
+      ? conversation?.recipientId
+      : conversation?.senderId;
+
+  const recipient: User = users?.find((user: User) => user.id === recipientId);
+
+  return {
+    props: {
+      userId,
+      user,
+      token,
+      conversationId,
+      conversation,
+      conversationMessages,
+      recipient,
+    },
+  };
+};
