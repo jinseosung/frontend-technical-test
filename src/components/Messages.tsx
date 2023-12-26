@@ -19,9 +19,7 @@ const Messages: React.FC<MessagesProps> = ({
         <div
           key={message.id}
           className={`flex gap-3 mb-6 ${
-            recipient.id !== message.authorId
-              ? "self-end flex-row-reverse"
-              : null
+            recipient.id !== message.authorId ? "self-end flex-row-reverse" : ""
           }`}
         >
           {recipient.id === message.authorId && (
@@ -42,7 +40,7 @@ const Messages: React.FC<MessagesProps> = ({
             }`}
           >
             <p className="text-xs text-orange-500 font-medium">
-              {!message.private ? "Public" : "Private"}
+              {message.private ? "Private" : "Public"}
             </p>
             <p className="text-xs text-gray-500">
               {getFormattedTime(message.timestamp)}

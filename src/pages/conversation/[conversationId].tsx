@@ -35,8 +35,8 @@ export default function ConversationIdPage({
 }: ConversationIdPageProps) {
   const [isPrivate, setIsPrivate] = useState(false);
 
-  const inputRef = useRef(null);
-  const selectRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const selectRef = useRef<HTMLSelectElement>(null);
 
   const [allMessages, setAllMessages] = useState(conversationMessages);
 
@@ -63,10 +63,10 @@ export default function ConversationIdPage({
   return (
     <>
       <Head>
-        <title>{`${user.nickname}'s Messages Page - Leboncoin`}</title>
+        <title>{`${user.nickname}'s Messages with ${recipient.nickname} - Leboncoin`}</title>
         <meta
           name="description"
-          content={`${user.nickname}'s messages page on leboncoin.fr`}
+          content={`Messages between ${user.nickname} and ${recipient.nickname} on leboncoin.fr`}
         ></meta>
       </Head>
 

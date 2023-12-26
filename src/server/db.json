@@ -63,6 +63,14 @@
       "authorId": 2,
       "private": true,
       "body": "Bonjour c'est le premier message de la seconde conversation"
+    },
+    {
+      "id": "89931c6d-ad3e-43c0-ac94-cfb73eab4548",
+      "conversationId": 3,
+      "timestamp": 1703598864,
+      "authorId": 1,
+      "private": false,
+      "body": "test"
     }
   ],
   "users": [
