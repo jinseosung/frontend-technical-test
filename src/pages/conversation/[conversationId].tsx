@@ -21,6 +21,10 @@ export default function ConversationIdPage() {
   const conversation = conversations?.find(
     (conversation) => conversation.id === Number(conversationId)
   );
+  
+  const conversationMessages = getMessagesByConversationId(
+    Number(conversationId)
+  );
 
   const recipientId: number =
     conversation?.senderId === userId
@@ -44,7 +48,7 @@ export default function ConversationIdPage() {
         recipientAvatar={recipient.avatar}
         lastMessageTime={conversation?.lastMessageTimestamp}
       />
-      <Messages />
+      <Messages recipient={recipient} conversationMessages={conversationMessages} />
       <div className="flex flex-col gap-2 p-4">
         <input
           className="p-2 border border-gray-300 rounded-md truncate"
