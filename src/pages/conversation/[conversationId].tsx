@@ -60,7 +60,6 @@ export default function ConversationIdPage({
     inputRef.current.value = "";
     setAllMessages([...allMessages, newMessageObject]);
   };
-
   return (
     <>
       <Head>
@@ -74,7 +73,11 @@ export default function ConversationIdPage({
       <ConversationHeader
         recipientNickname={recipient.nickname}
         recipientAvatar={recipient.avatar}
-        lastMessageTime={conversation?.lastMessageTimestamp}
+        lastMessageTime={
+          conversationMessages.length > 0
+            ? conversationMessages[conversationMessages.length - 1].timestamp
+            : null
+        }
       />
       <Messages recipient={recipient} conversationMessages={allMessages} />
       <div className="flex flex-col gap-2 p-4">

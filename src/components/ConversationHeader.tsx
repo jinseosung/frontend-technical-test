@@ -15,7 +15,8 @@ const ConversationHeader: React.FC<ConversationHeaderProps> = ({
   recipientAvatar,
   lastMessageTime,
 }) => {
-  const formattedLastMessageTime = getFormattedTime(lastMessageTime);
+  const formattedLastMessageTime =
+    lastMessageTime && getFormattedTime(lastMessageTime);
 
   return (
     <div className="w-full p-2 flex justify-between items-center border-b border-b-gray-300">
@@ -41,7 +42,7 @@ const ConversationHeader: React.FC<ConversationHeaderProps> = ({
         </h1>
       </div>
       <div className="w-1/3 text-right text-sm truncate">
-        <p>Last message at {formattedLastMessageTime}</p>
+        {lastMessageTime && <p>Last message at {formattedLastMessageTime}</p>}
       </div>
     </div>
   );
